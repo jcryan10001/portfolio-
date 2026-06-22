@@ -1,0 +1,2106 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jai Choudhary, Portfolio</title>
+  <meta name="description" content="Software engineer and technical founder. Builder of autonomous AI systems — a 26,000-user job platform, a 120,000-company discovery crawler, a local-first voice AI, and SerpFlare, a commercial web-data API.">
+  <meta name="author" content="Jai Choudhary">
+  <meta name="theme-color" content="#080A0C">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <!-- Social link previews. URLs below assume GitHub Pages at https://jcryan10001.github.io/portfolio-/ — change them if your live address differs (custom domain, renamed repo, etc.) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Jai Choudhary · Software Engineer & Technical Founder">
+  <meta property="og:description" content="Builder of autonomous AI systems — a 26,000-user job platform, a 120K-company crawler, a local-first voice AI, and SerpFlare, a commercial web-data API.">
+  <meta property="og:image" content="https://jcryan10001.github.io/portfolio-/assets/og-cover.png">
+  <meta property="og:url" content="https://jcryan10001.github.io/portfolio-/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Jai Choudhary · Software Engineer & Technical Founder">
+  <meta name="twitter:description" content="Builder of autonomous AI systems — a 26,000-user job platform, a 120K-company crawler, a local-first voice AI, and SerpFlare, a commercial web-data API.">
+  <meta name="twitter:image" content="https://jcryan10001.github.io/portfolio-/assets/og-cover.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080A0C; --bg2: #0D1014; --bg3: #141820;
+      --text: #EDEAE3; --muted: #55554F; --muted2: #8A8A83;
+      --border: #1A1D22; --border2: #2A2D33;
+      --accent: oklch(0.75 0.20 175); --c: var(--accent);
+      --serif: 'Instrument Serif', 'Times New Roman', serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 1000;
+      pointer-events: none; opacity: 0;
+    }
+    .mono { font-family: var(--mono); }
+    .muted { color: var(--muted); }
+    a { color: inherit; text-decoration: none; }
+    button { background: none; border: none; cursor: pointer; color: inherit; font-family: inherit; font-size: inherit; }
+    em { font-family: var(--serif); font-style: italic; font-weight: 400; }
+    .route-wrap { animation: fade-in 0.5s ease both; }
+    @keyframes fade-in { from { opacity: 0.01; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) {
+      .route-wrap, .home-eyebrow, .home-name-big, .home-role-line, .home-desc-line, .home-cta-row, .home-right, .work-tile-2x2 {
+        animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important;
+      }
+    }
+    .section-label { font-size: 11px; letter-spacing: 0.16em; display: block; margin-bottom: 20px; text-transform: uppercase; }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav-scrolled { background: rgba(8,10,12,0.8); backdrop-filter: blur(14px); border-color: var(--border); }
+    .nav-name { font-size: 14px; font-weight: 700; letter-spacing: 0.18em; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-link {
+      font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
+      color: var(--muted); transition: color 0.2s; position: relative; padding: 4px 0;
+    }
+    .nav-link:hover { color: var(--text); }
+    .nav-link-active { color: var(--text); }
+    .nav-link-active::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -2px;
+      height: 1px; background: var(--accent);
+    }
+
+    /* ═════════ HOME PAGE V2 ═════════ */
+    .page-home {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 100px 48px 60px; position: relative; overflow: hidden;
+    }
+    .home-grid-bg {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+    }
+    .home-hero-v2 {
+      position: relative; z-index: 1; max-width: 1400px; margin: 0 auto;
+      width: 100%; display: grid; grid-template-columns: 1fr 380px;
+      gap: 80px; align-items: center;
+    }
+    .home-left { max-width: 760px; }
+    .home-eyebrow {
+      font-size: 11px; letter-spacing: 0.16em; color: var(--muted2);
+      margin-bottom: 40px; text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 7px 14px; border-radius: 100px; border: 1px solid var(--border);
+      background: var(--bg2);
+      animation: rise 0.8s 0.1s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    .dot-live-green { width: 7px; height: 7px; border-radius: 50%; background: #6EE7B7; box-shadow: 0 0 8px #6EE7B7; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .home-name-big {
+      font-size: clamp(80px, 13vw, 200px);
+      font-weight: 700; line-height: 0.86;
+      letter-spacing: -0.04em;
+      display: flex; flex-direction: column; gap: 0;
+      animation: rise 1s 0.2s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    .name-first {
+      background: linear-gradient(180deg, #EDEAE3 40%, rgba(237,234,227,0.55) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .name-last {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      margin-top: -0.12em;
+    }
+    .home-role-line {
+      margin-top: 36px; font-size: clamp(17px, 1.6vw, 22px);
+      color: var(--muted2); display: flex; align-items: center; gap: 14px;
+      flex-wrap: wrap;
+      animation: rise 0.8s 0.35s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    .cycler {
+      position: relative; display: inline-block;
+      min-width: 140px; height: 1.3em;
+    }
+    .cycler-word {
+      position: absolute; top: 0; left: 0;
+      color: var(--text); font-weight: 500;
+      opacity: 0; transform: translateY(6px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .cycler-active { opacity: 1; transform: none; }
+    .role-sep { opacity: 0.3; }
+    .home-desc-line {
+      margin-top: 28px; font-size: 17px; line-height: 1.7;
+      color: var(--muted2); max-width: 580px;
+      animation: rise 0.8s 0.5s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    .home-cta-row {
+      display: flex; gap: 14px; margin-top: 44px;
+      animation: rise 0.8s 0.65s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    .home-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 24px; border-radius: 6px;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
+      border: 1px solid var(--border2); color: var(--muted2);
+      transition: all 0.2s;
+    }
+    .home-cta:hover { border-color: var(--text); color: var(--text); }
+    .home-cta-primary { border-color: var(--accent); color: var(--accent); }
+    .home-cta-primary:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+    .home-right {
+      display: flex; flex-direction: column; gap: 24px;
+      animation: rise 1s 0.4s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    .portrait-slot {
+      aspect-ratio: 4/5; background: var(--bg2); border: 1px solid var(--border);
+      position: relative; overflow: hidden; border-radius: 2px;
+    }
+    .portrait-img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .home-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+      border-top: 1px solid var(--border); padding-top: 20px;
+    }
+    .home-stat { display: flex; flex-direction: column; gap: 4px; }
+    .home-stat span:first-child { font-size: 10px; letter-spacing: 0.12em; }
+    .home-stat span:last-child { font-size: 13px; font-weight: 500; }
+
+    /* ═════════ WORK PAGE (2x2) ═════════ */
+    .page-work { padding: 140px 48px 80px; max-width: 1400px; margin: 0 auto; }
+    .work-header { margin-bottom: 80px; max-width: 900px; }
+    .work-title {
+      font-size: clamp(48px, 7vw, 104px); font-weight: 700;
+      line-height: 1; letter-spacing: -0.03em; margin-bottom: 28px;
+    }
+    .work-blurb { font-size: 18px; color: var(--muted2); max-width: 540px; line-height: 1.6; }
+
+    .work-grid-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .work-tile-2x2 {
+      cursor: pointer; display: flex; flex-direction: column;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 4px; overflow: hidden;
+      transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.3s;
+      animation: tile-rise 0.8s cubic-bezier(0.16,1,0.3,1) both;
+      animation-delay: calc(var(--i) * 0.08s);
+    }
+    @keyframes tile-rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+    .work-tile-2x2:hover { transform: translateY(-6px); border-color: var(--c); }
+    .tile-visual-wrap {
+      height: 340px; position: relative; overflow: hidden; background: var(--bg3);
+    }
+    .tile-caption {
+      padding: 28px 32px 32px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .tile-meta { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; display: flex; gap: 8px; align-items: center; }
+    .tile-dot { opacity: 0.4; }
+    .tile-title { font-size: 24px; font-weight: 600; line-height: 1.15; letter-spacing: -0.01em; }
+    .tile-short { font-size: 14px; color: var(--muted2); line-height: 1.55; margin-bottom: 14px; }
+    .tile-footer {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      border-top: 1px solid var(--border); padding-top: 16px; margin-top: auto;
+    }
+    .tile-stat-v { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; display: block; line-height: 1; }
+    .tile-stat-l { font-size: 10px; letter-spacing: 0.1em; margin-top: 4px; display: block; }
+    .tile-view { font-size: 11px; letter-spacing: 0.12em; font-weight: 600; padding-bottom: 4px; transition: transform 0.2s; }
+    .work-tile-2x2:hover .tile-view { transform: translateX(4px); }
+
+    /* Featured (wide) tile — keeps an odd count balanced */
+    .work-tile-2x2.featured { grid-column: 1 / -1; flex-direction: row; min-height: 440px; }
+    .work-tile-2x2.featured .tile-visual-wrap { width: 56%; height: auto; }
+    .work-tile-2x2.featured .tile-caption { width: 44%; justify-content: center; gap: 14px; padding: 40px 46px; }
+    .work-tile-2x2.featured .tile-title { font-size: 32px; }
+    .work-tile-2x2.featured .tile-short { font-size: 15px; max-width: 440px; margin-bottom: 18px; }
+
+    /* Visit-live CTA on detail pages */
+    .detail-live { margin-top: 26px; }
+    .detail-live-btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 12px 22px; border-radius: 6px;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.03em;
+      border: 1px solid var(--c); color: var(--c); transition: all 0.2s;
+    }
+    .detail-live-btn:hover { background: var(--c); color: var(--bg); }
+
+    /* ═════════ SCREENSHOT SLOT VISUAL ═════════ */
+    .vis { width: 100%; height: 100%; position: relative; display: flex; }
+    .vis-slot {
+      width: 100%; height: 100%; position: relative; overflow: hidden;
+      background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%);
+      display: flex; flex-direction: column;
+    }
+    .slot-stripes {
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(-45deg, transparent 0 16px, rgba(255,255,255,0.025) 16px 17px);
+    }
+    .slot-frame {
+      position: absolute; inset: 20px; border: 1px dashed rgba(255,255,255,0.08);
+      border-radius: 2px;
+    }
+    .slot-inner {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 14px; padding: 20px;
+      text-align: center;
+    }
+    .slot-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 10px; letter-spacing: 0.14em; padding: 5px 11px;
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 100px;
+      color: var(--muted2);
+    }
+    .slot-dot { width: 6px; height: 6px; border-radius: 50%; animation: pulse 2s infinite; }
+    .slot-label {
+      font-size: 18px; font-weight: 600; letter-spacing: 0.06em;
+      color: var(--text); text-transform: uppercase;
+    }
+    .slot-hint { font-size: 11px; letter-spacing: 0.06em; max-width: 280px; line-height: 1.5; }
+    .slot-meta {
+      position: absolute; bottom: 16px; left: 20px; right: 20px;
+      display: flex; justify-content: space-between;
+      font-size: 10px; letter-spacing: 0.1em;
+      z-index: 2;
+    }
+
+    /* ═════════ SYSTEM 1 VISUAL ═════════ */
+    .vis-s1 {
+      background: linear-gradient(180deg, #131417 0%, #0A0B0D 100%);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .s1-stage { position: relative; display: flex; align-items: center; justify-content: center; }
+    .phone-frame {
+      width: 200px; height: 400px;
+      background: #0A0806; border: 1px solid rgba(255,255,255,0.1); border-radius: 28px;
+      position: relative; padding: 12px;
+      box-shadow: 0 40px 80px rgba(255,255,255,0.05), inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+    .phone-notch {
+      position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+      width: 70px; height: 16px; background: #000; border-radius: 100px;
+    }
+    .phone-screen {
+      width: 100%; height: 100%; border-radius: 18px;
+      background: linear-gradient(180deg, #0A0806 0%, #100D06 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: relative; padding: 28px 18px 22px; gap: 14px; overflow: hidden;
+    }
+    .s1-state { font-size: 9px; color: var(--c); letter-spacing: 0.16em; text-transform: uppercase; }
+    .s1-orb-wrap { position: relative; width: 130px; height: 130px; display: flex; align-items: center; justify-content: center; }
+    .s1-orb-ring {
+      position: absolute; border: 1px solid var(--c); border-radius: 50%;
+      opacity: 0; animation: orb-ring 3s ease-out infinite;
+    }
+    .s1-orb-ring.r1 { width: 60px; height: 60px; animation-delay: 0s; }
+    .s1-orb-ring.r2 { width: 100px; height: 100px; animation-delay: 1s; }
+    .s1-orb-ring.r3 { width: 130px; height: 130px; animation-delay: 2s; }
+    @keyframes orb-ring { 0%{opacity:0.8;transform:scale(0.3)} 100%{opacity:0;transform:scale(1.2)} }
+    .s1-orb-core {
+      width: 50px; height: 50px; border-radius: 50%;
+      background: radial-gradient(circle, var(--c) 0%, rgba(216,222,230,0.28) 60%, transparent 100%);
+      animation: orb-breath 2s ease-in-out infinite alternate;
+    }
+    @keyframes orb-breath {
+      from { transform: scale(0.9); box-shadow: 0 0 20px var(--c); }
+      to { transform: scale(1.1); box-shadow: 0 0 50px var(--c); }
+    }
+    .s1-wave { display: flex; gap: 2px; align-items: center; height: 28px; }
+    .s1-wave span {
+      width: 2px; background: var(--c); border-radius: 1px;
+      animation: wave 0.8s ease-in-out infinite alternate;
+    }
+    @keyframes wave { from { transform: scaleY(0.3); } to { transform: scaleY(1); } }
+    .s1-transcript {
+      font-size: 10px; color: rgba(237,234,227,0.7); line-height: 1.4; text-align: center;
+      font-family: var(--mono); max-width: 180px;
+    }
+
+    /* ═════════ AGENT VISUAL ═════════ */
+    .agent-vis {
+      width: 100%; height: 100%; position: relative;
+      display: flex; align-items: center; justify-content: center; padding: 16px;
+      background: radial-gradient(ellipse at 50% 38%, rgba(0,212,200,0.07), transparent 68%), linear-gradient(180deg, #0A0E11 0%, #06090C 100%);
+    }
+    .agent-ghost {
+      position: absolute; width: 286px; height: 250px; border: 1px solid var(--border2);
+      border-radius: 10px; background: rgba(18,22,28,0.55);
+    }
+    .agent-ghost.g1 { transform: translate(-28px, -20px) scale(0.95); opacity: 0.4; }
+    .agent-ghost.g2 { transform: translate(26px, 18px) scale(0.92); opacity: 0.25; }
+    .agent-browser {
+      position: relative; width: 318px; max-width: 86%;
+      background: #0E1318; border: 1px solid var(--c); border-radius: 10px; overflow: hidden;
+      box-shadow: 0 20px 54px rgba(0,0,0,0.55), 0 0 24px rgba(0,212,200,0.08);
+    }
+    .agent-chrome {
+      display: flex; align-items: center; gap: 9px; padding: 8px 11px;
+      border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02);
+    }
+    .agent-dots { display: flex; gap: 5px; flex: none; }
+    .agent-dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.16); display: block; }
+    .agent-url {
+      flex: 1; font-family: var(--mono); font-size: 9.5px; color: var(--muted2);
+      background: rgba(0,0,0,0.35); border-radius: 5px; padding: 4px 9px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .agent-form { padding: 13px 15px 11px; display: flex; flex-direction: column; gap: 9px; }
+    .agent-field { display: flex; flex-direction: column; gap: 3px; }
+    .af-label { font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
+    .af-input {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      min-height: 27px; padding: 5px 9px; border-radius: 6px;
+      border: 1px solid var(--border2); background: rgba(255,255,255,0.02);
+      transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+    }
+    .agent-field.active .af-input { border-color: var(--c); box-shadow: 0 0 0 3px rgba(0,212,200,0.13); background: rgba(0,212,200,0.04); }
+    .agent-field.done .af-input { border-color: rgba(0,212,200,0.42); }
+    .af-text { font-size: 11.5px; color: var(--text); font-family: var(--mono); white-space: nowrap; overflow: hidden; }
+    .af-caret { display: inline-block; width: 1.5px; height: 12px; background: var(--c); margin-left: 1px; vertical-align: middle; animation: af-blink 1s steps(1) infinite; }
+    @keyframes af-blink { 50% { opacity: 0; } }
+    .af-check { color: var(--c); font-size: 12px; font-weight: 700; flex: none; animation: af-pop 0.32s cubic-bezier(0.2,1.4,0.4,1); }
+    @keyframes af-pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .agent-submit {
+      margin-top: 2px; text-align: center; font-size: 11.5px; font-weight: 600; letter-spacing: 0.02em;
+      padding: 8px; border-radius: 6px; color: var(--muted2);
+      border: 1px solid var(--border2); transition: all 0.3s;
+    }
+    .agent-submit.go { background: var(--c); color: #04110F; border-color: var(--c); box-shadow: 0 0 18px rgba(0,212,200,0.4); }
+    .agent-success {
+      position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+      background: rgba(6,9,12,0.88); backdrop-filter: blur(3px);
+      font-size: 13px; font-weight: 600; color: var(--text); animation: af-fade 0.4s ease;
+    }
+    .agent-success .as-check {
+      width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: var(--c); color: #04110F; font-size: 23px; font-weight: 800;
+      box-shadow: 0 0 28px rgba(0,212,200,0.55); animation: af-pop 0.4s cubic-bezier(0.2,1.4,0.4,1);
+    }
+    @keyframes af-fade { from { opacity: 0; } to { opacity: 1; } }
+    .agent-status {
+      display: flex; align-items: center; gap: 7px; padding: 7px 13px;
+      border-top: 1px solid var(--border); font-family: var(--mono); font-size: 9px;
+      letter-spacing: 0.04em; color: var(--muted2); background: rgba(0,0,0,0.28);
+    }
+    .agent-status b { color: var(--c); font-weight: 600; }
+    .agent-sdot { width: 6px; height: 6px; border-radius: 50%; background: var(--c); box-shadow: 0 0 8px var(--c); animation: pulse 1.6s infinite; flex: none; }
+
+    /* ═════════ SERPFLARE VISUAL ═════════ */
+    .sf-vis {
+      width: 100%; height: 100%; position: relative;
+      display: flex; align-items: center; justify-content: center; padding: 16px;
+      background: radial-gradient(ellipse at 50% 36%, rgba(249,115,22,0.09), transparent 66%), linear-gradient(180deg, #120C07 0%, #0A0704 100%);
+    }
+    .sf-console {
+      width: 322px; max-width: 88%; font-family: var(--mono);
+      background: #0F0B07; border: 1px solid var(--c); border-radius: 10px; overflow: hidden;
+      box-shadow: 0 20px 54px rgba(0,0,0,0.55), 0 0 24px rgba(249,115,22,0.1);
+    }
+    .sf-bar {
+      display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+      border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02);
+    }
+    .sf-method { font-size: 8.5px; font-weight: 700; letter-spacing: 0.06em; color: #160A02; background: var(--c); padding: 3px 6px; border-radius: 4px; flex: none; }
+    .sf-endpoint { font-size: 10px; color: var(--c); font-weight: 600; flex: none; }
+    .sf-url { font-size: 9px; color: var(--muted2); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; background: rgba(0,0,0,0.3); padding: 3px 8px; border-radius: 5px; }
+    .sf-tiers { display: flex; align-items: center; gap: 6px; padding: 8px 11px; border-bottom: 1px solid var(--border); }
+    .sf-tier-label { font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-right: 2px; flex: none; }
+    .sf-pill {
+      font-size: 8.5px; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 100px;
+      border: 1px solid var(--border2); color: var(--muted); flex: none;
+      transition: all 0.3s;
+    }
+    .sf-pill.hidden { opacity: 0; transform: translateY(4px); }
+    .sf-pill.idle { opacity: 0.3; }
+    .sf-pill.tried { opacity: 0.6; color: var(--muted2); text-decoration: line-through; }
+    .sf-pill.win { color: #160A02; background: var(--c); border-color: var(--c); font-weight: 600; box-shadow: 0 0 13px rgba(249,115,22,0.45); }
+    .sf-response { padding: 10px 12px 12px; min-height: 104px; display: flex; flex-direction: column; gap: 2px; }
+    .sf-resp-head { display: flex; align-items: center; gap: 7px; margin-bottom: 7px; opacity: 0; transition: opacity 0.3s; }
+    .sf-resp-head.on { opacity: 1; }
+    .sf-ok { font-size: 8.5px; font-weight: 700; color: #6EE7B7; letter-spacing: 0.06em; }
+    .sf-chip { font-size: 8.5px; color: var(--muted2); background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 4px; }
+    .sf-chip.ms { color: var(--c); }
+    .sf-line { font-size: 10px; color: rgba(237,234,227,0.82); white-space: nowrap; overflow: hidden; line-height: 1.5; animation: sf-in 0.3s ease both; }
+    @keyframes sf-in { from { opacity: 0; transform: translateX(-5px); } to { opacity: 1; transform: none; } }
+    .sf-cursor { color: var(--c); animation: af-blink 1s steps(1) infinite; }
+
+    /* ═════════ PROJECT DETAIL ═════════ */
+    .page-detail { padding: 100px 0 80px; }
+    .detail-topbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 48px; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; background: rgba(8,10,12,0.85); backdrop-filter: blur(14px);
+      z-index: 200;
+    }
+    .detail-back { font-size: 12px; letter-spacing: 0.08em; color: var(--muted2); transition: color 0.2s; }
+    .detail-back:hover { color: var(--text); }
+
+    .detail-hero {
+      padding: 100px 48px 60px; max-width: 1200px; margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+    .detail-hero-meta {
+      display: flex; gap: 14px; align-items: center; font-size: 12px;
+      letter-spacing: 0.1em; margin-bottom: 32px;
+    }
+    .dot-sep { opacity: 0.4; }
+    .detail-title {
+      font-size: clamp(40px, 6vw, 88px); font-weight: 700;
+      line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 24px;
+      max-width: 980px;
+    }
+    .detail-subtitle {
+      font-size: clamp(18px, 1.8vw, 24px); font-weight: 300;
+      color: var(--muted2); line-height: 1.5; max-width: 800px;
+    }
+
+    .detail-media { padding: 60px 48px; max-width: 1400px; margin: 0 auto; }
+    .detail-video {
+      width: 100%; aspect-ratio: 16/9;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 4px; position: relative; overflow: hidden;
+    }
+    .detail-video::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, transparent 70%);
+    }
+    .detail-video-inner {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: var(--muted2);
+    }
+
+    .detail-grid {
+      display: grid; grid-template-columns: 180px 1fr; gap: 60px;
+      max-width: 1100px; margin: 0 auto; padding: 0 48px;
+    }
+    .detail-col-label {
+      font-size: 11px; letter-spacing: 0.14em;
+      padding-top: 6px; text-transform: uppercase;
+    }
+    .detail-col-body { max-width: 720px; }
+
+    .detail-overview { padding: 60px 0; border-bottom: 1px solid var(--border); }
+    .detail-lead { font-size: 22px; font-weight: 300; line-height: 1.55; color: var(--text); }
+
+    .detail-block { padding: 80px 0; border-bottom: 1px solid var(--border); }
+    .detail-bullets { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+    .detail-bullets li {
+      display: grid; grid-template-columns: 40px 1fr; gap: 16px;
+      font-size: 16px; line-height: 1.55; color: rgba(237,234,227,0.88);
+      padding-bottom: 20px; border-bottom: 1px solid var(--border);
+    }
+    .detail-bullets li:last-child { border-bottom: none; padding-bottom: 0; }
+    .bullet-num { font-size: 11px; color: var(--c); letter-spacing: 0.1em; padding-top: 4px; }
+    .detail-para { font-size: 16px; line-height: 1.8; color: rgba(237,234,227,0.75); margin-bottom: 20px; }
+    .detail-para:last-child { margin-bottom: 0; }
+
+    .detail-visual-contained {
+      padding: 60px 48px; background: var(--bg2);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .detail-visual-wrap {
+      max-width: 760px; margin: 0 auto; height: 480px;
+      border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+    }
+
+    .detail-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .detail-tag {
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em;
+      padding: 7px 14px; border-radius: 100px; border: 1px solid;
+      opacity: 0.85;
+    }
+
+    .detail-outcome { padding: 80px 0; border-bottom: 1px solid var(--border); }
+    .outcome-stat { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; }
+    .outcome-value { font-size: 84px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+    .outcome-label { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; }
+    .outcome-blurb { font-size: 18px; color: var(--muted2); line-height: 1.6; max-width: 640px; }
+
+    .detail-next { padding: 60px 48px; max-width: 1100px; margin: 0 auto; }
+    .next-card {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      padding: 40px; border: 1px solid var(--border); border-radius: 4px;
+      text-align: left; transition: all 0.3s;
+    }
+    .next-card:hover { border-color: var(--c); background: var(--bg2); }
+    .next-card .mono { font-size: 11px; letter-spacing: 0.14em; color: var(--muted); text-transform: uppercase; }
+    .next-card h3 { font-size: 26px; font-weight: 600; margin-top: 8px; }
+    .next-arrow { font-size: 32px; color: var(--c); transition: transform 0.3s; }
+    .next-card:hover .next-arrow { transform: translateX(8px); }
+
+    /* ═════════ ABOUT PAGE ═════════ */
+    .page-about { padding: 100px 48px 40px; max-width: 1300px; margin: 0 auto; }
+    .about-hero { padding: 40px 0 80px; }
+    .about-hero-grid {
+      display: grid; grid-template-columns: 1fr 340px; gap: 80px; align-items: start;
+    }
+    .about-hero-title {
+      font-size: clamp(44px, 6.5vw, 96px); font-weight: 700;
+      line-height: 1; letter-spacing: -0.03em; margin-bottom: 32px;
+    }
+    .about-hero-lead { font-size: 18px; line-height: 1.7; color: var(--muted2); max-width: 580px; margin-bottom: 40px; }
+    .about-hero-meta { display: flex; flex-direction: column; gap: 6px; font-size: 12px; letter-spacing: 0.08em; }
+    .portrait-placeholder {
+      aspect-ratio: 3/4; background: var(--bg2); border: 1px solid var(--border);
+      position: relative; overflow: hidden; border-radius: 2px;
+    }
+    .portrait-placeholder .portrait-img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+
+    .about-stripe {
+      margin: 40px 0; padding: 40px 0;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .stripe-inner { display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .stripe-stat { display: flex; flex-direction: column; gap: 6px; }
+    .stripe-v { font-size: 36px; font-weight: 700; letter-spacing: -0.02em; color: var(--accent); line-height: 1; }
+    .stripe-l { font-size: 10px; letter-spacing: 0.12em; }
+
+    .about-story { padding: 80px 0; }
+    .story-grid { display: grid; grid-template-columns: 180px 1fr; gap: 60px; max-width: 1000px; }
+    .story-col-label { font-size: 11px; letter-spacing: 0.14em; padding-top: 6px; text-transform: uppercase; }
+    .story-col-body p { font-size: 17px; line-height: 1.8; color: rgba(237,234,227,0.82); margin-bottom: 22px; }
+    .story-col-body p:last-child { margin-bottom: 0; }
+    .story-col-body strong { color: var(--accent); font-weight: 500; }
+
+    .about-principles { padding: 80px 0; border-top: 1px solid var(--border); }
+    .principles-header { margin-bottom: 48px; }
+    .principles-title { font-size: clamp(32px, 4vw, 56px); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; }
+    .principles-list { display: flex; flex-direction: column; }
+    .principle {
+      display: grid; grid-template-columns: 60px 1fr; gap: 32px;
+      padding: 32px 0; border-top: 1px solid var(--border);
+    }
+    .principle:last-child { border-bottom: 1px solid var(--border); }
+    .principle-num { font-size: 12px; color: var(--muted); letter-spacing: 0.1em; padding-top: 6px; }
+    .principle h4 { font-size: 22px; font-weight: 600; margin-bottom: 12px; letter-spacing: -0.01em; }
+    .principle p { font-size: 16px; line-height: 1.75; color: var(--muted2); max-width: 720px; }
+
+    .about-now { padding: 80px 0; border-top: 1px solid var(--border); }
+    .now-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; }
+    .now-col h3 { font-size: 22px; font-weight: 600; margin-bottom: 20px; letter-spacing: -0.01em; }
+    .now-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .now-col li {
+      font-size: 14px; line-height: 1.6; color: var(--muted2);
+      padding-left: 16px; position: relative;
+    }
+    .now-col li::before {
+      content: ''; position: absolute; left: 0; top: 8px;
+      width: 6px; height: 1px; background: var(--accent);
+    }
+
+    .about-recognition { padding: 80px 0; border-top: 1px solid var(--border); }
+    .recog-grid { display: grid; grid-template-columns: 180px 1fr; gap: 60px; max-width: 1000px; }
+    .recog-col-label { font-size: 11px; letter-spacing: 0.14em; padding-top: 6px; text-transform: uppercase; }
+    .recog-item {
+      display: grid; grid-template-columns: 80px 1fr; gap: 24px;
+      padding: 24px 0; border-top: 1px solid var(--border);
+    }
+    .recog-item:last-child { border-bottom: 1px solid var(--border); }
+    .recog-year { font-size: 11px; letter-spacing: 0.1em; padding-top: 4px; }
+    .recog-item h4 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+    .recog-item p { font-size: 14px; line-height: 1.6; color: var(--muted2); }
+
+    /* About: lead-2 */
+    .about-hero-lead-2 { font-size: 16px; line-height: 1.7; color: var(--muted); max-width: 580px; margin-bottom: 32px; }
+
+    /* Experience section */
+    .about-experience { padding: 80px 0; border-top: 1px solid var(--border); }
+    .exp-header { margin-bottom: 48px; }
+    .exp-title { font-size: clamp(28px, 3vw, 44px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid; grid-template-columns: 260px 1fr; gap: 48px;
+      padding: 36px 0; border-top: 1px solid var(--border);
+    }
+    .exp-item:last-child { border-bottom: 1px solid var(--border); }
+    .exp-meta { display: flex; flex-direction: column; gap: 6px; }
+    .exp-date { font-size: 11px; letter-spacing: 0.1em; }
+    .exp-company { font-size: 20px; font-weight: 600; }
+    .exp-role { font-size: 12px; letter-spacing: 0.08em; }
+    .exp-body ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .exp-body li {
+      font-size: 15px; line-height: 1.65; color: var(--muted2);
+      padding-left: 20px; position: relative;
+    }
+    .exp-body li::before {
+      content: ''; position: absolute; left: 0; top: 10px;
+      width: 8px; height: 1px; background: var(--accent);
+    }
+
+    /* Education */
+    .about-education { padding: 60px 0; border-top: 1px solid var(--border); }
+    .edu-grid { display: grid; grid-template-columns: 180px 1fr; gap: 60px; max-width: 1000px; }
+    .edu-col-label { font-size: 11px; letter-spacing: 0.14em; padding-top: 6px; text-transform: uppercase; }
+    .edu-col-body h4 { font-size: 20px; font-weight: 600; margin-bottom: 6px; }
+    .edu-col-body p { font-size: 15px; color: var(--muted2); }
+
+    /* Skills */
+    .about-skills { padding: 60px 0; border-top: 1px solid var(--border); }
+    .skills-grid { display: grid; grid-template-columns: 180px 1fr; gap: 60px; max-width: 1000px; }
+    .skills-col-label { font-size: 11px; letter-spacing: 0.14em; padding-top: 6px; text-transform: uppercase; }
+    .skills-col-body { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .skill-group h5 { font-size: 10px; letter-spacing: 0.14em; margin-bottom: 8px; }
+    .skill-group p { font-size: 14px; line-height: 1.6; color: var(--muted2); }
+
+    .about-cta { padding: 120px 0 80px; border-top: 1px solid var(--border); text-align: center; }
+    .cta-title {
+      font-size: clamp(36px, 5.5vw, 80px); font-weight: 700;
+      line-height: 1; letter-spacing: -0.03em; margin-bottom: 24px;
+    }
+    .cta-sub { font-size: 20px; color: var(--muted2); margin-bottom: 40px; }
+    .cta-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 28px; border-radius: 6px;
+      font-size: 14px; font-weight: 500; letter-spacing: 0.04em;
+      border: 1px solid var(--border2); color: var(--muted2);
+      transition: all 0.2s;
+    }
+    .cta-btn:hover { border-color: var(--text); color: var(--text); }
+    .cta-btn-primary { border-color: var(--accent); color: var(--accent); }
+    .cta-btn-primary:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+    /* ═════════ CONTACT PAGE ═════════ */
+    .page-contact { padding: 140px 48px 60px; max-width: 1200px; margin: 0 auto; }
+    .contact-hero { margin-bottom: 60px; max-width: 900px; }
+    .contact-title { font-size: clamp(56px, 8vw, 128px); font-weight: 700; line-height: 1; letter-spacing: -0.03em; margin-bottom: 28px; }
+    .contact-lead { font-size: 18px; line-height: 1.7; color: var(--muted2); max-width: 560px; }
+    .contact-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+      border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+      background: var(--border);
+    }
+    .contact-card {
+      display: flex; flex-direction: column; gap: 14px;
+      padding: 28px; background: var(--bg);
+      transition: background 0.2s;
+      min-height: 180px;
+    }
+    .contact-card:hover { background: var(--bg2); }
+    .contact-card-disabled { opacity: 0.5; pointer-events: none; }
+    .cc-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .cc-label { font-size: 11px; letter-spacing: 0.14em; color: var(--muted); }
+    .cc-arrow { color: var(--muted); transition: transform 0.2s, color 0.2s; }
+    .contact-card:hover .cc-arrow { color: var(--accent); transform: translate(2px, -2px); }
+    .cc-value { font-size: 20px; font-weight: 500; letter-spacing: -0.01em; margin-top: auto; line-height: 1.3; word-break: break-word; }
+    .cc-sub { font-size: 11px; letter-spacing: 0.06em; }
+
+    .contact-fine { margin-top: 80px; padding: 60px 0; border-top: 1px solid var(--border); }
+    .fine-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+    .fine-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .fine-col li {
+      font-size: 15px; line-height: 1.6; color: var(--muted2);
+      padding-left: 20px; position: relative;
+    }
+    .fine-col li::before {
+      content: ''; position: absolute; left: 0; top: 10px;
+      width: 8px; height: 1px; background: var(--accent);
+    }
+
+    /* ═════════ FOOTER ═════════ */
+    .footer { border-top: 1px solid var(--border); padding: 48px 48px 32px; margin-top: 80px; }
+    .footer-inner {
+      max-width: 1400px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr auto 1fr; gap: 40px; align-items: end;
+    }
+    .footer-name { font-size: 15px; font-weight: 700; letter-spacing: 0.18em; display: block; margin-bottom: 4px; }
+    .footer-tag { font-size: 11px; letter-spacing: 0.06em; }
+    .footer-nav { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; }
+    .footer-nav button, .footer-nav a {
+      font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
+      color: var(--muted); transition: color 0.2s;
+    }
+    .footer-nav button:hover, .footer-nav a:hover { color: var(--text); }
+    .footer-copy { font-size: 11px; letter-spacing: 0.08em; text-align: right; }
+
+    /* ═════════ RESPONSIVE ═════════ */
+    @media (max-width: 900px) {
+      .nav { padding: 16px 20px; }
+      .nav-links { gap: 18px; }
+      .page-home { padding: 100px 20px 60px; }
+      .home-hero-v2 { grid-template-columns: 1fr; gap: 40px; }
+      .home-right { max-width: 320px; }
+      .page-work { padding: 120px 20px 60px; }
+      .work-grid-2x2 { grid-template-columns: 1fr; gap: 24px; }
+      .work-tile-2x2.featured { flex-direction: column; min-height: 0; grid-column: auto; }
+      .work-tile-2x2.featured .tile-visual-wrap { width: 100%; height: 280px; }
+      .work-tile-2x2.featured .tile-caption { width: 100%; padding: 28px 32px 32px; }
+      .tile-visual-wrap { height: 280px; }
+      .page-detail { padding: 80px 0; }
+      .detail-topbar, .detail-hero, .detail-media, .detail-visual-contained, .detail-next { padding-left: 20px; padding-right: 20px; }
+      .detail-grid, .story-grid, .recog-grid { grid-template-columns: 1fr; gap: 20px; padding: 0 20px; }
+      .detail-visual-wrap { height: 360px; }
+      .page-about { padding: 80px 20px; }
+      .about-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-hero-right { max-width: 280px; }
+      .now-grid { grid-template-columns: 1fr; gap: 40px; }
+      .principle { grid-template-columns: 40px 1fr; gap: 16px; }
+      .recog-item { grid-template-columns: 60px 1fr; gap: 16px; }
+      .exp-item { grid-template-columns: 1fr; gap: 16px; }
+      .edu-grid, .skills-grid { grid-template-columns: 1fr; gap: 20px; }
+      .skills-col-body { grid-template-columns: 1fr; }
+      .page-contact { padding: 100px 20px 60px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .fine-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer { padding: 40px 20px 24px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 24px; text-align: left; }
+      .footer-copy { text-align: left; }
+      .stripe-inner { gap: 24px; }
+      .stripe-v { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="root"></div>
+  <script type="text/babel" data-file="components.jsx">
+
+const { useState, useEffect, useRef } = React;
+
+/* ════════ PROJECT TILE VISUALS ═══════════════════════════════════════ */
+
+function ScreenshotSlot({ accent, label, kind }) {
+  return (
+    <div className="vis-slot" style={{ '--c': accent }}>
+      <div className="slot-stripes"/>
+      <div className="slot-frame"/>
+      <div className="slot-inner">
+        <div className="slot-badge mono">
+          <span className="slot-dot" style={{background: accent}}/>
+          PLACEHOLDER
+        </div>
+        <span className="mono slot-label">{label}</span>
+        <span className="mono muted slot-hint">replace with real screenshot of {kind}</span>
+      </div>
+      <div className="slot-meta mono muted">
+        <span>16:10</span>
+        <span>drop image</span>
+      </div>
+    </div>
+  );
+}
+
+function AgentVisual({ accent }) {
+  const FIELDS = [
+    { label: 'Full name', value: 'Jordan Avery' },
+    { label: 'Email', value: 'jordan@proton.me' },
+    { label: 'Work eligibility', value: 'UK · No sponsorship' },
+    { label: 'Email verification code', value: '840 193' },
+  ];
+  const [active, setActive] = useState(0);
+  const [typed, setTyped] = useState('');
+  const [doneCount, setDoneCount] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
+  const timers = useRef([]);
+
+  useEffect(() => {
+    let alive = true;
+    const T = (fn, ms) => { const id = setTimeout(() => { if (alive) fn(); }, ms); timers.current.push(id); };
+    function run() {
+      setActive(0); setTyped(''); setDoneCount(0); setSubmitted(false);
+      let d = 650;
+      FIELDS.forEach((f, i) => {
+        T(() => { setActive(i); setTyped(''); }, d);
+        d += 360;
+        for (let c = 1; c <= f.value.length; c++) {
+          const cc = c;
+          T(() => setTyped(f.value.slice(0, cc)), d);
+          d += 34 + Math.random() * 34;
+        }
+        d += 260;
+        T(() => setDoneCount(i + 1), d);
+        d += 360;
+      });
+      T(() => { setActive(-1); setSubmitted(true); }, d);
+      d += 2000;
+      T(run, d);
+    }
+    run();
+    return () => { alive = false; timers.current.forEach(clearTimeout); timers.current = []; };
+  }, []);
+
+  return (
+    <div className="agent-vis" style={{ '--c': accent }}>
+      <div className="agent-ghost g1"/>
+      <div className="agent-ghost g2"/>
+      <div className="agent-browser">
+        <div className="agent-chrome">
+          <span className="agent-dots"><i/><i/><i/></span>
+          <span className="agent-url">careers.acme.io/apply</span>
+        </div>
+        <div className="agent-form">
+          {FIELDS.map((f, i) => {
+            const isActive = i === active;
+            const isDone = i < doneCount;
+            const text = isDone ? f.value : (isActive ? typed : '');
+            return (
+              <div key={i} className={`agent-field ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}`}>
+                <span className="af-label">{f.label}</span>
+                <div className="af-input">
+                  <span className="af-text">{text}{isActive && !isDone && <span className="af-caret"/>}</span>
+                  {isDone && <span className="af-check">✓</span>}
+                </div>
+              </div>
+            );
+          })}
+          <div className={`agent-submit ${submitted ? 'go' : ''}`}>Submit application →</div>
+        </div>
+        {submitted && (
+          <div className="agent-success">
+            <span className="as-check">✓</span>
+            Application submitted
+          </div>
+        )}
+        <div className="agent-status">
+          <span className="agent-sdot"/> agent · <b>{doneCount}</b>/{FIELDS.length} fields · 3-source verified
+        </div>
+      </div>
+    </div>
+  );
+}
+function NavCoreVisual({ accent }) {
+  const canvasRef = useRef(null);
+  const animRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = 800, H = 520;
+    canvas.width = W; canvas.height = H;
+
+    const hexToRgb = (hex) => {
+      const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+      return {r,g,b};
+    };
+    const ac = hexToRgb(accent);
+    const acRgba = (a) => `rgba(${ac.r},${ac.g},${ac.b},${a})`;
+
+    const COMPANIES = [
+      'Deloitte','KPMG','Rolls-Royce','Unilever','Barclays','BP','GSK',
+      'AstraZeneca','HSBC','Dyson','ARM','BT Group','Tesco','Sage',
+      'Lloyds','Vodafone','Shell','BAE Systems','Monzo','Revolut',
+      'Spotify','Deliveroo','Darktrace','Ocado','McLaren','Sky',
+      'NatWest','Aviva','Legal & General','Arup','WPP','Experian',
+      'Accenture','Capgemini','ThoughtWorks','Palantir','Wise','Checkout.com',
+    ];
+
+    // Companies spread across full top width
+    const companies = COMPANIES.map((name, i) => {
+      const ratio = i / (COMPANIES.length - 1);
+      const x = 40 + ratio * (W - 80);
+      const y = 50 + Math.random() * 60;
+      return { name, x, y, alpha: 0.5 + Math.random() * 0.4 };
+    });
+
+    // Engine center
+    const engine = { x: W / 2, y: H * 0.44 };
+    // Database bottom
+    const db = { x: W / 2, y: H * 0.82 };
+
+    // Particles flowing from companies → engine
+    const particles = [];
+    // Data drops flowing engine → database
+    const dataDrops = [];
+    let t = 0;
+    let processedCount = 0;
+
+    function spawnParticle() {
+      const ci = Math.floor(Math.random() * companies.length);
+      const c = companies[ci];
+      particles.push({
+        x: c.x, y: c.y,
+        targetX: engine.x + (Math.random() - 0.5) * 16,
+        targetY: engine.y + (Math.random() - 0.5) * 8,
+        progress: 0,
+        speed: 0.008 + Math.random() * 0.006,
+        companyIdx: ci,
+        showName: Math.random() < 0.3,
+      });
+    }
+
+    function spawnDataDrop() {
+      dataDrops.push({
+        x: engine.x + (Math.random() - 0.5) * 20,
+        y: engine.y + 20,
+        targetX: db.x + (Math.random() - 0.5) * 40,
+        targetY: db.y - 10,
+        progress: 0,
+        speed: 0.01 + Math.random() * 0.008,
+      });
+    }
+
+    // Draw a small building icon
+    function drawBuilding(x, y, size, alpha) {
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = acRgba(0.6);
+      // Main body
+      ctx.fillRect(x - size * 0.4, y - size, size * 0.8, size);
+      // Windows
+      ctx.fillStyle = acRgba(0.9);
+      const ws = size * 0.15;
+      for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 2; col++) {
+          ctx.fillRect(
+            x - size * 0.25 + col * size * 0.35,
+            y - size * 0.85 + row * size * 0.3,
+            ws, ws
+          );
+        }
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    // Draw database cylinder
+    function drawDatabase(x, y, w, h) {
+      const ry = 8;
+      ctx.strokeStyle = acRgba(0.6);
+      ctx.lineWidth = 1.5;
+      ctx.fillStyle = acRgba(0.08);
+      // Body
+      ctx.beginPath();
+      ctx.moveTo(x - w/2, y - h/2 + ry);
+      ctx.lineTo(x - w/2, y + h/2 - ry);
+      ctx.ellipse(x, y + h/2 - ry, w/2, ry, 0, Math.PI, 0, true);
+      ctx.lineTo(x + w/2, y - h/2 + ry);
+      ctx.fill();
+      ctx.stroke();
+      // Top ellipse
+      ctx.beginPath();
+      ctx.ellipse(x, y - h/2 + ry, w/2, ry, 0, 0, Math.PI * 2);
+      ctx.fillStyle = acRgba(0.15);
+      ctx.fill();
+      ctx.stroke();
+      // Middle line
+      ctx.beginPath();
+      ctx.ellipse(x, y - 2, w/2, ry, 0, 0, Math.PI, false);
+      ctx.strokeStyle = acRgba(0.2);
+      ctx.stroke();
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      t++;
+
+      // --- Background: curved flowing lines from companies to engine ---
+      companies.forEach(c => {
+        const cpx = (c.x + engine.x) / 2;
+        const cpy = c.y + (engine.y - c.y) * 0.8;
+        ctx.strokeStyle = acRgba(0.15);
+        ctx.lineWidth = 0.6;
+        ctx.beginPath();
+        ctx.moveTo(c.x, c.y);
+        ctx.quadraticCurveTo(cpx, cpy, engine.x, engine.y - 8);
+        ctx.stroke();
+      });
+
+      // Faint line engine → db
+      ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(engine.x - 15, engine.y + 20);
+      ctx.lineTo(db.x - 15, db.y - 20);
+      ctx.moveTo(engine.x + 15, engine.y + 20);
+      ctx.lineTo(db.x + 15, db.y - 20);
+      ctx.stroke();
+
+      // --- Draw company buildings along top ---
+      companies.forEach((c, i) => {
+        drawBuilding(c.x, c.y, 10, c.alpha * 0.5);
+      });
+
+      // "120,000+" label at top center
+      ctx.font = '700 14px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = acRgba(0.9);
+      ctx.fillText('120,000+', W / 2, 22);
+      ctx.font = '400 9px "JetBrains Mono", monospace';
+      ctx.fillStyle = 'rgba(255,255,255,0.4)';
+      ctx.fillText('UK COMPANIES WITH SPONSOR LICENCES', W / 2, 36);
+
+      // --- Spawn particles ---
+      if (t % 3 === 0) spawnParticle();
+      if (t % 25 === 0) spawnDataDrop();
+
+      // --- Draw & update particles (company → engine, along curve) ---
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.progress += p.speed;
+        const c = companies[p.companyIdx];
+        const t2 = p.progress;
+        const cpx = (c.x + engine.x) / 2;
+        const cpy = c.y + (engine.y - c.y) * 0.8;
+        const ex = engine.x, ey = engine.y - 8;
+        const bx = (1-t2)*(1-t2)*c.x + 2*(1-t2)*t2*cpx + t2*t2*ex;
+        const by = (1-t2)*(1-t2)*c.y + 2*(1-t2)*t2*cpy + t2*t2*ey;
+
+        ctx.fillStyle = acRgba(0.9 * (1 - t2 * 0.3));
+        ctx.beginPath(); ctx.arc(bx, by, 2, 0, Math.PI * 2); ctx.fill();
+
+        if (p.showName && t2 < 0.4) {
+          ctx.font = '400 8px "JetBrains Mono", monospace';
+          ctx.fillStyle = `rgba(237,234,227,${0.6 * (1 - t2 * 2.5)})`;
+          ctx.textAlign = 'center';
+          ctx.fillText(c.name, bx, by - 8);
+        }
+
+        if (p.progress >= 1) { processedCount++; particles.splice(i, 1); }
+      }
+
+      // --- Draw data drops (engine → database) ---
+      for (let i = dataDrops.length - 1; i >= 0; i--) {
+        const d = dataDrops[i];
+        d.progress += d.speed;
+        const dy = d.y + (d.targetY - d.y) * d.progress;
+        const dx = d.x + (d.targetX - d.x) * d.progress;
+        const alpha = 0.7 * (1 - d.progress * 0.6);
+        ctx.fillStyle = acRgba(alpha);
+        ctx.beginPath(); ctx.arc(dx, dy, 1.5, 0, Math.PI * 2); ctx.fill();
+        if (d.progress >= 1) dataDrops.splice(i, 1);
+      }
+
+      // --- Engine node ---
+      // Glow
+      const grd = ctx.createRadialGradient(engine.x, engine.y, 0, engine.x, engine.y, 40);
+      grd.addColorStop(0, acRgba(0.15));
+      grd.addColorStop(1, 'transparent');
+      ctx.fillStyle = grd;
+      ctx.beginPath(); ctx.arc(engine.x, engine.y, 40, 0, Math.PI * 2); ctx.fill();
+
+      // Pulse rings
+      for (let p = 0; p < 2; p++) {
+        const phase = ((t * 0.6 + p * 120) % 240) / 240;
+        const radius = 16 + phase * 30;
+        ctx.strokeStyle = acRgba((1 - phase) * 0.3);
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(engine.x, engine.y, radius, 0, Math.PI * 2); ctx.stroke();
+      }
+
+      // Engine box
+      const ew = 120, eh = 32;
+      ctx.fillStyle = acRgba(0.12);
+      ctx.strokeStyle = acRgba(0.5);
+      ctx.lineWidth = 1.5;
+      const br = 6;
+      ctx.beginPath();
+      ctx.roundRect(engine.x - ew/2, engine.y - eh/2, ew, eh, br);
+      ctx.fill(); ctx.stroke();
+
+      ctx.font = '600 11px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = acRgba(1);
+      ctx.fillText('NAVCORE', engine.x, engine.y + 4);
+
+      // --- Side labels ---
+      ctx.font = '400 8px "JetBrains Mono", monospace';
+      ctx.fillStyle = 'rgba(255,255,255,0.35)';
+      ctx.textAlign = 'right';
+      ctx.fillText('NAVIGATES SITES', engine.x - 80, engine.y - 6);
+      ctx.fillText('EXTRACTS DATA', engine.x - 80, engine.y + 8);
+      ctx.textAlign = 'left';
+      ctx.fillText('VERIFIES DAILY', engine.x + 80, engine.y - 6);
+      ctx.fillText('REMOVES EXPIRED', engine.x + 80, engine.y + 8);
+
+      // Side connector lines
+      ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+      ctx.lineWidth = 0.5;
+      ctx.beginPath();
+      ctx.moveTo(engine.x - ew/2, engine.y);
+      ctx.lineTo(engine.x - 76, engine.y);
+      ctx.moveTo(engine.x + ew/2, engine.y);
+      ctx.lineTo(engine.x + 76, engine.y);
+      ctx.stroke();
+
+      // --- Database ---
+      drawDatabase(db.x, db.y, 60, 40);
+      ctx.font = '500 9px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = 'rgba(255,255,255,0.45)';
+      ctx.fillText('JOB DATABASE', db.x, db.y + 34);
+
+      // --- Bottom stats ---
+      ctx.font = '400 9px "JetBrains Mono", monospace';
+      ctx.textAlign = 'left';
+      ctx.fillStyle = 'rgba(255,255,255,0.25)';
+      const dots = '.'.repeat((Math.floor(t / 30) % 3) + 1);
+      ctx.fillText('CRAWLING' + dots, 16, H - 14);
+
+      ctx.textAlign = 'right';
+      ctx.fillStyle = acRgba(0.7);
+      ctx.fillText((processedCount % 999).toLocaleString() + ' PROCESSED', W - 16, H - 14);
+
+      animRef.current = requestAnimationFrame(draw);
+    }
+
+    animRef.current = requestAnimationFrame(draw);
+    return () => { if (animRef.current) cancelAnimationFrame(animRef.current); };
+  }, [accent]);
+
+  return (
+    <div className="vis" style={{ '--c': accent, background: 'linear-gradient(180deg, #0D0A18 0%, #08060F 100%)' }}>
+      <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
+    </div>
+  );
+}
+function PlatformVisual({ accent }) {
+  return (
+    <div className="vis" style={{ background: '#0a0a0a', width: '100%', height: '100%' }}>
+      <img src="assets/passion-hero.png" alt="Passion Projects platform" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block' }} />
+    </div>
+  );
+}
+function SerpFlareVisual({ accent }) {
+  const TIERS = ['http', 'browser', 'managed'];
+  const DEMOS = [
+    { method: 'POST', endpoint: '/search', url: 'best js frameworks 2024', tier: 0, ms: 410, credits: 1, lines: [
+      '{ "searchParameters": {',
+      '    "q": "best js frameworks",',
+      '    "engine": "google" },',
+      '  "organic": [ { "position": 1,',
+      '    "title": "Top 10 JS…" } ] }',
+    ]},
+    { method: 'POST', endpoint: '/scrape', url: 'https://linear.app', tier: 1, ms: 1911, credits: 1, lines: [
+      '{ "url": "linear.app",',
+      '  "tier": "browser",',
+      '  "markdown": "# The product',
+      '    development system…",',
+      '  "status": 200 }',
+    ]},
+    { method: 'POST', endpoint: '/map', url: 'https://stripe.com', tier: 0, ms: 680, credits: 1, lines: [
+      '{ "url": "stripe.com",',
+      '  "tier": "http",',
+      '  "links": 318,',
+      '  "credits": 1 }',
+    ]},
+  ];
+  const [di, setDi] = useState(0);
+  const [phase, setPhase] = useState('request');
+  const [tierStep, setTierStep] = useState(-1);
+  const [lineCount, setLineCount] = useState(0);
+  const timers = useRef([]);
+
+  useEffect(() => {
+    let alive = true;
+    const T = (fn, ms) => { const id = setTimeout(() => { if (alive) fn(); }, ms); timers.current.push(id); };
+    function run(idx) {
+      const d = DEMOS[idx];
+      setDi(idx); setPhase('request'); setTierStep(-1); setLineCount(0);
+      let t = 600;
+      T(() => setPhase('tiers'), t);
+      for (let i = 0; i <= d.tier; i++) { const ii = i; T(() => setTierStep(ii), t); t += 340; }
+      t += 360;
+      T(() => setPhase('response'), t);
+      for (let l = 1; l <= d.lines.length; l++) { const ll = l; T(() => setLineCount(ll), t); t += 330; }
+      t += 280;
+      T(() => setPhase('done'), t);
+      t += 1700;
+      T(() => run((idx + 1) % DEMOS.length), t);
+    }
+    run(0);
+    return () => { alive = false; timers.current.forEach(clearTimeout); timers.current = []; };
+  }, []);
+
+  const d = DEMOS[di];
+  const revealedMax = phase === 'request' ? -1 : (phase === 'tiers' ? tierStep : d.tier);
+  return (
+    <div className="sf-vis" style={{ '--c': accent }}>
+      <div className="sf-console">
+        <div className="sf-bar">
+          <span className="sf-method">{d.method}</span>
+          <span className="sf-endpoint">{d.endpoint}</span>
+          <span className="sf-url">{d.url}</span>
+        </div>
+        <div className="sf-tiers">
+          <span className="sf-tier-label">tier</span>
+          {TIERS.map((t, i) => {
+            let cls;
+            if (phase === 'request') cls = 'hidden';
+            else if (i <= revealedMax) cls = i < d.tier ? 'tried' : 'win';
+            else cls = 'idle';
+            return <span key={t} className={`sf-pill ${cls}`}>{t}</span>;
+          })}
+        </div>
+        <div className="sf-response">
+          <div className={`sf-resp-head ${phase === 'done' ? 'on' : ''}`}>
+            <span className="sf-ok">200 OK</span>
+            <span className="sf-chip">{d.credits} credit</span>
+            <span className="sf-chip ms">⚡ {d.ms}ms</span>
+          </div>
+          {d.lines.slice(0, lineCount).map((ln, i) => <div className="sf-line" key={di + '-' + i}>{ln}</div>)}
+          {phase === 'response' && lineCount < d.lines.length && <div className="sf-line sf-cursor">▍</div>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SystemOneVisual({ accent }) {
+  return (
+    <div className="vis vis-s1" style={{ '--c': accent }}>
+      <div className="s1-stage">
+        <div className="phone-frame">
+          <div className="phone-notch"/>
+          <div className="phone-screen">
+            <div className="s1-state mono">LIVE, listening</div>
+            <div className="s1-orb-wrap">
+              <div className="s1-orb-ring r1"/>
+              <div className="s1-orb-ring r2"/>
+              <div className="s1-orb-ring r3"/>
+              <div className="s1-orb-core"/>
+            </div>
+            <div className="s1-wave">
+              {[0.4,0.7,1,0.8,0.5,0.9,0.6,1,0.7,0.5,0.8,0.6,0.9,0.4,0.7,0.5,0.8,0.6,1,0.7].map((h,i) => (
+                <span key={i} style={{ height: `${h*100}%`, animationDelay: `${i*0.05}s` }}/>
+              ))}
+            </div>
+            <div className="s1-transcript">"book me a flight to edinburgh"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const VISUAL_MAP = { agent: AgentVisual, navcore: NavCoreVisual, system1: SystemOneVisual, platform: PlatformVisual, serpflare: SerpFlareVisual };
+
+/* ════════ SHARED NAV ═══════════════════════════════════════════════ */
+function Nav({ route, go }) {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', fn); fn();
+    return () => window.removeEventListener('scroll', fn);
+  }, []);
+  const isActive = (r) => route === r || (r === 'work' && route.startsWith('project/'));
+  return (
+    <nav className={`nav ${scrolled ? 'nav-scrolled' : ''}`}>
+      <button className="nav-name" onClick={() => go('home')}>JAI CHOUDHARY</button>
+      <div className="nav-links">
+        <button onClick={() => go('home')} className={`nav-link ${isActive('home') ? 'nav-link-active' : ''}`}>Home</button>
+        <button onClick={() => go('about')} className={`nav-link ${isActive('about') ? 'nav-link-active' : ''}`}>About</button>
+        <button onClick={() => go('work')} className={`nav-link ${isActive('work') ? 'nav-link-active' : ''}`}>Work</button>
+        <button onClick={() => go('contact')} className={`nav-link ${isActive('contact') ? 'nav-link-active' : ''}`}>Contact</button>
+      </div>
+    </nav>
+  );
+}
+
+/* ════════ WORK PAGE (2x2 GRID) ═════════════════════════════════════ */
+function WorkPage({ go }) {
+  return (
+    <main className="page page-work">
+      <header className="work-header">
+        <span className="mono muted section-label">SELECTED WORK · 2023 to 2026</span>
+        <h1 className="work-title">Five complex systems.</h1>
+        <p className="work-blurb">Each one engineered for scale and cost. Tap any tile to dive deeper.</p>
+      </header>
+
+      <div className="work-grid-2x2">
+        {window.PROJECTS.map((p, i) => {
+          const V = VISUAL_MAP[p.id];
+          return (
+            <article key={p.id} className={`work-tile-2x2 ${i === 0 ? 'featured' : ''}`} onClick={() => go(`project/${p.id}`)} style={{ '--c': p.accent, '--i': i }}>
+              <div className="tile-visual-wrap">
+                <V accent={p.accentHex} />
+              </div>
+              <div className="tile-caption">
+                <div className="tile-meta mono muted">
+                  <span>{p.num}</span>
+                  <span className="tile-dot">·</span>
+                  <span>{p.year}</span>
+                </div>
+                <h3 className="tile-title">{p.title}</h3>
+                <p className="tile-short">{p.shortline}</p>
+                <div className="tile-footer">
+                  <div>
+                    <span className="tile-stat-v mono" style={{color: p.accent}}>{p.stat}</span>
+                    <span className="tile-stat-l mono muted">{p.statLabel}</span>
+                  </div>
+                  <span className="tile-view mono" style={{color: p.accent}}>VIEW →</span>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </main>
+  );
+}
+
+/* ════════ PROJECT DETAIL ═══════════════════════════════════════════ */
+function getYouTubeId(url) {
+  if (!url) return null;
+  const m = String(url).match(/(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([\w-]{11})/);
+  return m ? m[1] : null;
+}
+
+function ProjectDetail({ id, go }) {
+  const p = window.PROJECTS.find(x => x.id === id);
+  const V = p ? VISUAL_MAP[p.id] : null;
+  useEffect(() => { window.scrollTo(0, 0); }, [id]);
+  if (!p) return <div className="page"><p>Project not found.</p></div>;
+
+  const idx = window.PROJECTS.findIndex(x => x.id === id);
+  const next = window.PROJECTS[(idx + 1) % window.PROJECTS.length];
+  const ytId = getYouTubeId(p.videoUrl);
+  let ytSrc = null;
+  if (ytId) {
+    const params = new URLSearchParams({ rel: '0', modestbranding: '1' });
+    if (p.videoStart != null) params.set('start', String(p.videoStart));
+    if (p.videoEnd != null) params.set('end', String(p.videoEnd));
+    ytSrc = `https://www.youtube.com/embed/${ytId}?${params.toString()}`;
+  }
+  const total = String(window.PROJECTS.length).padStart(2, '0');
+
+  return (
+    <main className="page page-detail" style={{ '--c': p.accent }}>
+      <div className="detail-topbar">
+        <button onClick={() => go('work')} className="detail-back mono">← Back to work</button>
+        <span className="mono muted">{p.num} of {total}</span>
+      </div>
+
+      <section className="detail-hero">
+        <div className="detail-hero-meta mono muted">
+          <span>{p.year}</span>
+          <span className="dot-sep">·</span>
+          <span>{p.role}</span>
+          <span className="dot-sep">·</span>
+          <span style={{color: p.accent}}>{p.stat} {p.statLabel}</span>
+        </div>
+        <h1 className="detail-title">{p.title}</h1>
+        <p className="detail-subtitle">{p.subtitle}</p>
+        {p.liveUrl && (
+          <div className="detail-live">
+            <a className="detail-live-btn" href={p.liveUrl} target="_blank" rel="noopener noreferrer">
+              Visit live
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M5 11L11 5M6 5h5v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </a>
+          </div>
+        )}
+      </section>
+
+      <section className="detail-media">
+        {p.id === 'navcore' ? (
+          <div className="detail-video" style={{background: 'linear-gradient(180deg, #0D0A18 0%, #08060F 100%)'}}>
+            <V accent={p.accentHex} />
+          </div>
+        ) : ytId ? (
+          <div className="detail-video">
+            <iframe
+              src={ytSrc}
+              title={p.title}
+              loading="lazy"
+              frameBorder="0"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              style={{position:'absolute',inset:0,width:'100%',height:'100%',border:'none'}}
+            />
+          </div>
+        ) : p.id === 'serpflare' ? (
+          <div className="detail-video" style={{ background: '#0a0a0c' }}>
+            <img src="assets/serpflare-playground.png" alt="SerpFlare playground" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block' }} />
+          </div>
+        ) : (
+          <div className="detail-video" data-video-url={p.videoUrl}>
+            <div className="detail-video-inner">
+              <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+                <circle cx="28" cy="28" r="27" stroke="currentColor" strokeWidth="1" opacity="0.3"/>
+                <path d="M22 18l18 10-18 10V18z" fill="currentColor" opacity="0.6"/>
+              </svg>
+              <span className="mono muted" style={{fontSize:'11px',marginTop:'14px',letterSpacing:'0.12em'}}>VIDEO DEMO</span>
+            </div>
+          </div>
+        )}
+      </section>
+
+      <section className="detail-overview">
+        <div className="detail-grid">
+          <div className="detail-col-label mono muted">OVERVIEW</div>
+          <div className="detail-col-body">
+            <p className="detail-lead">{p.lead}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="detail-block">
+        <div className="detail-grid">
+          <div className="detail-col-label mono muted">WHAT IT DOES</div>
+          <div className="detail-col-body">
+            <ul className="detail-bullets">
+              {p.bullets.map((b,i) => <li key={i}><span className="bullet-num mono">{String(i+1).padStart(2,'0')}</span><span>{b}</span></li>)}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {p.id !== 'navcore' && !ytId && (
+      <section className="detail-visual-contained">
+        <div className="detail-visual-wrap">
+          {p.id === 'serpflare' ? (
+            <div className="vis" style={{ background: '#0a0a0c', width: '100%', height: '100%' }}>
+              <img src="assets/serpflare-hero.png" alt="SerpFlare landing page" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block' }} />
+            </div>
+          ) : (
+            <V accent={p.accentHex} />
+          )}
+        </div>
+      </section>
+      )}
+
+      <section className="detail-block">
+        <div className="detail-grid">
+          <div className="detail-col-label mono muted">UNDER THE HOOD</div>
+          <div className="detail-col-body">
+            {p.details.map((d,i) => <p key={i} className="detail-para">{d}</p>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="detail-block">
+        <div className="detail-grid">
+          <div className="detail-col-label mono muted">BUILT WITH</div>
+          <div className="detail-col-body">
+            <div className="detail-tags">
+              {p.tags.map(t => <span key={t} className="detail-tag" style={{borderColor: p.accent, color: p.accent}}>{t}</span>)}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="detail-outcome">
+        <div className="detail-grid">
+          <div className="detail-col-label mono muted">OUTCOME</div>
+          <div className="detail-col-body">
+            <div className="outcome-stat">
+              <span className="outcome-value" style={{color: p.accent}}>{p.stat}</span>
+              <span className="outcome-label mono muted">{p.statLabel}</span>
+            </div>
+            <p className="outcome-blurb">{p.outcome}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="detail-next">
+        <button onClick={() => go(`project/${next.id}`)} className="next-card" style={{ '--c': next.accent }}>
+          <div>
+            <span className="mono muted">NEXT PROJECT · {next.num}</span>
+            <h3>{next.title}</h3>
+          </div>
+          <span className="next-arrow">→</span>
+        </button>
+      </section>
+    </main>
+  );
+}
+
+/* ════════ ABOUT PAGE ═══════════════════════════════════════════════ */
+function AboutPage({ go }) {
+  return (
+    <main className="page page-about">
+      <section className="about-hero">
+        <div className="about-hero-grid">
+          <div className="about-hero-left">
+            <span className="mono muted section-label">ABOUT</span>
+            <h1 className="about-hero-title">
+              Jai<br/>
+              <em>Choudhary</em>
+            </h1>
+            <p className="about-hero-lead">
+              Software engineer and technical founder. I built an autonomous job application platform from scratch to 26,000+ users. I own every layer: the React frontend, C#/.NET backend, Python orchestration, cloud infrastructure, and the multi-agent systems that automate complex workflows across thousands of unstandardised employer websites.
+            </p>
+            <p className="about-hero-lead-2">
+              My foundation is in strict, regulated environments. Before building my own company, I shipped enterprise software integrating with SAP across SQL and HANA databases, and developed tools for NHS patient record systems within strict Scrum release cycles. I've managed remote operations teams of up to 8 people, and I know the difference between AI that demos well on Twitter and software that actually survives in production.
+            </p>
+            <div className="about-hero-meta mono muted">
+              <span>· Manchester, UK</span>
+              <span>· UK Innovator Founder Visa</span>
+              <span>· No Sponsorship Required</span>
+            </div>
+          </div>
+          <div className="about-hero-right">
+            <div className="portrait-placeholder">
+              <img src="portrait.jpeg" alt="Jai Choudhary" className="portrait-img" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="about-stripe">
+        <div className="stripe-inner">
+          {[
+            { v: '26K+', l: 'ORGANIC USERS' },
+            { v: '120K+', l: 'COMPANIES PROCESSED' },
+            { v: '10–15×', l: 'COST REDUCTION' },
+            { v: '7+', l: 'YEARS SHIPPING' },
+          ].map((s,i) => (
+            <div key={i} className="stripe-stat">
+              <span className="stripe-v mono">{s.v}</span>
+              <span className="stripe-l mono muted">{s.l}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="about-story">
+        <div className="story-grid">
+          <div className="story-col-label mono muted">THE STORY</div>
+          <div className="story-col-body">
+            <p>Passion Projects started as a frustration. I was an international professional trying to navigate UK sponsorship — a maze of stale aggregator data, dead listings, and manual applications.</p>
+            <p>So I built a small tool to help. Then a better one. I quickly realised the bottleneck wasn't just the applications — it was the entire data layer underneath them.</p>
+            <p>Initially, I built and managed a remote team of 8 people to process company data manually. To scale beyond them, I engineered an autonomous engine trained directly on their workflows. It condensed six months of manual data entry into less than one week, at a fraction of the cost.</p>
+            <p>Four years later: <strong>26,000+ organic users</strong>. A proprietary discovery engine processing <strong>120,000+ companies daily</strong>. A multi-agent system that creates accounts on employer portals, retrieves email verification codes, navigates multi-step forms, writes screening answers in the applicant's own voice, and submits — on sites it has never seen. A voice AI assistant running entirely on local CPU hardware with custom semantic turn-detection that outperforms commercial alternatives. And a platform endorsed by the UK Government via the Innovator Founder Visa.</p>
+            <p>Most recently, I shipped <strong>SerpFlare</strong> — a commercial web-data API that turns any URL or search query into clean, structured data, even on pages defended by the toughest bot-detection systems. Built and operated solo, an adaptive multi-tier retrieval engine keeps it fast and cheap where rivals brute-force every request.</p>
+            <p>Whether I'm working inside a strict enterprise release cycle or architecting a platform from bare metal — my conviction is the same: if you engineer the constraints and data structures correctly, you can build systems that solve real problems at serious scale.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="about-experience">
+        <div className="exp-header">
+          <span className="mono muted section-label">EXPERIENCE</span>
+          <h2 className="exp-title">Before Passion Projects</h2>
+        </div>
+        <div className="exp-list">
+          <div className="exp-item">
+            <div className="exp-meta">
+              <span className="exp-date mono muted">Aug 2021 to Mar 2023</span>
+              <span className="exp-company">Ochiba Business Solutions</span>
+              <span className="exp-role mono muted">Software Developer</span>
+            </div>
+            <div className="exp-body">
+              <ul>
+                <li>Led development of three enterprise applications using C#, .NET Core, Blazor, and TypeScript, integrating with SAP Business One Service Layer across SQL and HANA databases.</li>
+                <li>Built a 3D visualisation component with Three.js, optimising rendering pipelines and improving application performance by 50%.</li>
+                <li>Upgraded a single-tenant legacy system into a scalable multi-customer platform, directly driving new client acquisition.</li>
+              </ul>
+            </div>
+          </div>
+          <div className="exp-item">
+            <div className="exp-meta">
+              <span className="exp-date mono muted">Aug 2019 to Sep 2020</span>
+              <span className="exp-company">Servelec PLC (NHS EPR Systems)</span>
+              <span className="exp-role mono muted">Software Developer</span>
+            </div>
+            <div className="exp-body">
+              <ul>
+                <li>Developed tools for NHS Electronic Patient Record systems on the RIO platform within strict Scrum release cycles.</li>
+                <li>Built a high-performance Java/Node.js application processing 50M+ XML records for graphical fault recognition. Created an automated debugging pipeline that saved two months of development time.</li>
+                <li>Optimised data filtering by replacing legacy C# logic with direct SQL queries, improving system speed by 30%.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="about-education">
+        <div className="edu-grid">
+          <div className="edu-col-label mono muted">EDUCATION</div>
+          <div className="edu-col-body">
+            <h4>BSc (Hons) Computing Science</h4>
+            <p>University of Huddersfield, 2017 to 2021 (Included Sandwich Year Internship)</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="about-skills">
+        <div className="skills-grid">
+          <div className="skills-col-label mono muted">SKILLS</div>
+          <div className="skills-col-body">
+            <div className="skill-group">
+              <h5 className="mono muted">LANGUAGES</h5>
+              <p>C#, TypeScript, JavaScript, Python, SQL, Java</p>
+            </div>
+            <div className="skill-group">
+              <h5 className="mono muted">FRONTEND</h5>
+              <p>React, Blazor, HTML5/CSS3, Three.js</p>
+            </div>
+            <div className="skill-group">
+              <h5 className="mono muted">BACKEND</h5>
+              <p>.NET Core, ASP.NET, Node.js, FastAPI</p>
+            </div>
+            <div className="skill-group">
+              <h5 className="mono muted">CLOUD AND INFRA</h5>
+              <p>GCP, AWS, Firebase, Docker, Cloudflare, Netcup (Dedicated Servers)</p>
+            </div>
+            <div className="skill-group">
+              <h5 className="mono muted">AI AND AUTOMATION</h5>
+              <p>Multi-agent orchestration, LLM routing and verification, voice/audio pipelines (Speechmatics, local STT/TTS), headless browser automation, semantic error recovery</p>
+            </div>
+            <div className="skill-group">
+              <h5 className="mono muted">DATA AND TOOLS</h5>
+              <p>MySQL, SQL Server, HANA DB, Firestore, Git, REST APIs, WebSockets, CDP</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="about-principles">
+        <div className="principles-header">
+          <span className="mono muted section-label">HOW I THINK</span>
+          <h2 className="principles-title">Four principles<br/>on repeat.</h2>
+        </div>
+        <div className="principles-list">
+          <div className="principle">
+            <span className="principle-num mono">01</span>
+            <div>
+              <h4>Trust nothing, verify everything</h4>
+              <p>A single source of truth in web automation is a liability. My autonomous agents cross-reference three independent sources — the agent's own internal state, a visual screenshot via OCR, and the live DOM state via CDP — before marking any action as complete. This catches silent failures and cuts wasted inference costs.</p>
+            </div>
+          </div>
+          <div className="principle">
+            <span className="principle-num mono">02</span>
+            <div>
+              <h4>Cost is a design constraint, not an afterthought</h4>
+              <p>Margins get engineered in from day one. NavCore exists because third-party scrapers cost 10x what bespoke crawling does at scale. The voice AI runs on local CPU hardware because cloud API calls compound forever. If the unit economics don't work on a whiteboard, no amount of scaling will save them.</p>
+            </div>
+          </div>
+          <div className="principle">
+            <span className="principle-num mono">03</span>
+            <div>
+              <h4>Own the data layer</h4>
+              <p>If your competitors can buy the same data you do, you don't have a moat — you have a lease. Everything that matters in my platform is crawled, extracted, and verified by systems I built end-to-end. 120,000+ UK sponsor-licensed companies, processed daily, with zero reliance on third-party APIs.</p>
+            </div>
+          </div>
+          <div className="principle">
+            <span className="principle-num mono">04</span>
+            <div>
+              <h4>Humans stay in the loop, always</h4>
+              <p>Every autonomous system I build gives the user a steering wheel. Watch multiple applications executing in parallel via live VNC/WebSocket video streams. Take over mid-application. Correct it on the fly. Automation should extend human capability, not replace it.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="about-recognition">
+        <div className="recog-grid">
+          <div className="recog-col-label mono muted">TIMELINE</div>
+          <div className="recog-col-body">
+            <div className="recog-item">
+              <span className="recog-year mono muted">2026</span>
+              <div>
+                <h4>Voice AI in development</h4>
+                <p>Local-first, custom semantic turn-detection, multi-speaker filtering, sub-300ms latency on pure CPU.</p>
+              </div>
+            </div>
+            <div className="recog-item">
+              <span className="recog-year mono muted">2026</span>
+              <div>
+                <h4>SerpFlare goes commercial</h4>
+                <p>A live, billing-ready web-data API — search, scrape, map &amp; crawl in one call, with adaptive multi-tier retrieval and anti-bot resilience.</p>
+              </div>
+            </div>
+            <div className="recog-item">
+              <span className="recog-year mono muted">2025</span>
+              <div>
+                <h4>Autonomous application agent</h4>
+                <p>Full lifecycle execution on unseen DOMs. Account creation, email verification, form submission. 15x cost reduction.</p>
+              </div>
+            </div>
+            <div className="recog-item">
+              <span className="recog-year mono muted">2024</span>
+              <div>
+                <h4>10,000 users</h4>
+                <p>100% organic growth. Zero marketing spend.</p>
+              </div>
+            </div>
+            <div className="recog-item">
+              <span className="recog-year mono muted">2023</span>
+              <div>
+                <h4>UK Innovator Founder Visa</h4>
+                <p>Endorsed by the UK Government. NavCore replaces the 8-person manual team.</p>
+              </div>
+            </div>
+            <div className="recog-item">
+              <span className="recog-year mono muted">2021</span>
+              <div>
+                <h4>Ochiba Business Solutions</h4>
+                <p>Enterprise SAP integrations, multi-tenant platform architecture.</p>
+              </div>
+            </div>
+            <div className="recog-item">
+              <span className="recog-year mono muted">2019</span>
+              <div>
+                <h4>Servelec PLC, NHS</h4>
+                <p>50M+ XML records processed in strict healthcare environments.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="about-cta">
+        <div className="cta-inner">
+          <h2 className="cta-title">
+            Looking for collaborative teams,<br/>
+            hard problems, and real systems.
+          </h2>
+          <p className="cta-sub">Senior roles. Complex domains.</p>
+          <div className="cta-links">
+            <button onClick={() => go('contact')} className="cta-btn cta-btn-primary">Get in touch →</button>
+            <button onClick={() => go('work')} className="cta-btn">Dive into the work →</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+/* ════════ CONTACT PAGE ═════════════════════════════════════════════ */
+function ContactPage() {
+  const [copied, setCopied] = useState(false);
+  const email = 'Choudhary.jai08@gmail.com';
+  const copyEmail = () => {
+    navigator.clipboard?.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1800);
+  };
+  const methods = [
+    { key: 'email', label: 'EMAIL', value: email, sub: 'Best for everything', href: `mailto:${email}`, action: 'copy' },
+    { key: 'phone', label: 'PHONE', value: '+44 07455 755585', sub: 'Call or WhatsApp', href: 'tel:+4407455755585' },
+    { key: 'linkedin', label: 'LINKEDIN', value: 'jai-choudhary-passion-project', sub: 'Professional profile', href: 'https://linkedin.com/in/jai-choudhary-passion-project' },
+    { key: 'github', label: 'GITHUB', value: 'jcryan10001', sub: 'Public repos and architecture', href: 'https://github.com/jcryan10001' },
+    { key: 'website', label: 'PASSION PROJECTS', value: 'passion-project.co.uk', sub: 'The platform, live', href: 'https://www.passion-project.co.uk' },
+  ];
+
+  return (
+    <main className="page page-contact">
+      <section className="contact-hero">
+        <span className="mono muted section-label">CONTACT</span>
+        <h1 className="contact-title">
+          Say hello<span style={{color:'var(--accent)'}}>.</span>
+        </h1>
+        <p className="contact-lead">
+          I read every message. The best way to reach me depends on why.
+        </p>
+      </section>
+
+      <section className="contact-grid">
+        {methods.map(m => (
+          <a key={m.key} href={m.href || undefined}
+            target={m.href && m.href.startsWith('http') ? '_blank' : undefined}
+            rel="noopener noreferrer"
+            onClick={m.action === 'copy' ? (e) => { e.preventDefault(); copyEmail(); } : undefined}
+            className="contact-card">
+            <div className="cc-top">
+              <span className="cc-label mono">{m.label}</span>
+              <span className="cc-arrow">
+                {m.key === 'email' && copied ? (
+                  <span className="mono" style={{fontSize: '11px', color: 'var(--accent)'}}>COPIED</span>
+                ) : (
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M5 11L11 5M6 5h5v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </span>
+            </div>
+            <div className="cc-value">{m.value}</div>
+            <div className="cc-sub mono muted">{m.sub}</div>
+          </a>
+        ))}
+      </section>
+
+      <section className="contact-fine">
+        <div className="fine-grid">
+          <div className="fine-col">
+            <span className="mono muted section-label">GOOD FIT</span>
+            <ul>
+              <li>Collaborative teams tackling hard technical problems.</li>
+              <li>AI systems, agent architecture, and autonomous workflows.</li>
+              <li>Products that need cost efficiency engineered in from day one.</li>
+              <li>Complex, regulated environments — enterprise, healthcare, SaaS.</li>
+            </ul>
+          </div>
+          <div className="fine-col">
+            <span className="mono muted section-label">NOT A FIT</span>
+            <ul>
+              <li>Thin integration layers or prompt-only AI projects.</li>
+              <li>Roles that can't support remote-first working.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+/* ════════ EXPORT ═══════════════════════════════════════════════════ */
+Object.assign(window, { Nav, WorkPage, ProjectDetail, AboutPage, ContactPage, VISUAL_MAP });
+
+</script>
+  <script type="text/babel" data-file="data.jsx">
+
+const { useState, useEffect, useRef, useCallback } = React;
+
+/* ════════ DATA ═════════════════════════════════════════════════════ */
+window.PROJECTS = [
+  {
+    id: 'agent', num: '01', year: '2025',
+    title: 'Autonomous Application Agent',
+    subtitle: 'A multi-agent system that executes full job applications on unseen websites — at 1/15th the cost of routing through frontier models.',
+    shortline: 'Navigates hidden DOM structures, handles multi-step logic, and manages email OTP verification in parallel on headless backend servers.',
+    role: 'Architect, Engineer',
+    accent: 'oklch(0.75 0.20 175)', accentHex: '#00D4C8',
+    tags: ['Python','FastAPI','Docker','Gemini Vision','Claude','WebSockets','VNC','Chrome DevTools Protocol','React'],
+    lead: 'A complex system of specialised agents that reliably navigates entirely unseen application portals. It understands hidden fields, complex DOM relationships, and multi-chain logic. Executing entirely in parallel on headless backend servers (zero client resources), it achieves near-perfect accuracy with a 10-15x cost reduction compared to standard frontier model approaches.',
+    bullets: [
+      'Account creation, sign-ins, and email-based OTP verification.',
+      'Multi-step form navigation across highly complex, unstandardised DOM structures.',
+      'Free-text screening question generation calibrated to the applicant\'s exact background and voice.',
+      'Live document-type adjustments and intelligent field mapping.',
+      'Deep semantic fallbacks for missing dropdown values and logic breaks.',
+    ],
+    details: [
+      'Targeted Orchestration over Single Models: Rather than routing massive workflows through one expensive frontier model, the architecture uses specialised sub-agents scoped to specific tasks. This costs 10-15x less than standard API usage while maintaining higher resilience — if one agent fails, the others continue.',
+      'Deep DOM Understanding: The system doesn\'t just read markup. It understands field relationships — knowing what to fill first, what to skip, and how to trigger cascading dependent fields. A three-source verification pipeline (agent internal state, visual OCR, live DOM via CDP) confirms every action before proceeding.',
+      'Low-Latency Human-in-the-Loop: Users watch multiple applications executing in parallel via a WebSocket/VNC server-streamed interface. They can monitor progress or seamlessly take manual control of the browser session without interrupting the backend state.',
+    ],
+    stat: '10–15×', statLabel: 'cost reduction',
+    outcome: 'In production handling thousands of applications. Near-perfect accuracy on dynamic, unseen websites, running securely on dedicated backend servers at a fraction of standard inference costs.',
+    videoUrl: 'https://www.youtube.com/watch?v=c9XSqB9XS_A',
+    videoStart: 121, videoEnd: 185,
+  },
+  {
+    id: 'navcore', num: '02', year: '2024',
+    title: 'NavCore, Discovery Engine',
+    subtitle: 'From a raw company name to a live, curated listing. 100x faster than manual processing.',
+    shortline: 'Crawls, navigates, and extracts deep job data without third-party APIs. Condenses 6 months of manual data entry into less than a week.',
+    role: 'Architect, Engineer',
+    accent: 'oklch(0.75 0.20 290)', accentHex: '#A78BFA',
+    tags: ['Python','Crawl4AI','Custom Navigation Models','Docker','MySQL','Google Cloud'],
+    lead: 'A bespoke discovery engine trained on the exact workflows of an 8-person operations team I previously managed. NavCore ingests a raw company name, autonomously crawls the web to find the correct domain, navigates specific site hierarchies to locate career pages, and extracts heavily-formatted job data in parallel at scale.',
+    bullets: [
+      'Discovers the correct company website from a raw name alone.',
+      'Navigates deep site hierarchies without relying on static templates or sitemaps.',
+      'Extracts, separates, formats, and curates complex job data requirements.',
+      'Operates in massive parallel scale to keep data strictly real-time.',
+      'Rechecks daily, instantly removing expired listings.',
+    ],
+    details: [
+      'Built for Scale: What took my manual team six months to process across 80,000 companies, NavCore now handles for 120,000+ companies in less than a week.',
+      'Zero Third-Party APIs: Built entirely from the ground up without commercial scraping services. The optimised internal architecture uses 1/10th of the resources, resulting in a 100x speed increase at a fraction of the cost.',
+      'Deep Data Extraction: Goes beyond titles and links. It extracts deep contextual information required to power internal platform logic — salary bands, visa requirements, application formats — creating a data layer that competitors relying on stale aggregators cannot replicate.',
+    ],
+    stat: '120K+', statLabel: 'companies processed weekly',
+    outcome: 'Feeds the live listings layer behind every search on Passion Projects. Completely eliminated manual overhead, cut costs dramatically, and created a proprietary, self-updating data moat.',
+    videoUrl: 'NAVCORE_VIDEO_URL',
+  },
+  {
+    id: 'system1', num: '03', year: '2026',
+    title: 'Voice AI Assistant',
+    subtitle: 'A local-first voice assistant with deep context, real-time browser control, and zero cloud dependency for audio processing.',
+    shortline: 'Sub-300ms conversational latency on CPU. Multi-speaker detection, custom semantic turn-detection, and full browser automation via CDP.',
+    role: 'Architect, Engineer',
+    accent: 'oklch(0.9 0.006 250)', accentHex: '#D8DEE6',
+    tags: ['Swift/SwiftUI','Python','FastAPI','ONNX','Speechmatics','Chrome DevTools Protocol','WebSockets','Claude'],
+    lead: 'An autonomous, context-aware voice assistant designed to handle complex pipelines of work through natural conversation. Featuring a native iOS client and Python server running on dedicated local hardware (16-core AMD EPYC, 64GB RAM, no GPU), it uses multi-speaker detection and an in-house semantic turn-detection system built to outperform current commercial alternatives.',
+    bullets: [
+      'Multi-Speaker Audio Processing: Speaker enrollment and diarisation allow it to distinguish your voice from background noise, TV audio, or its own echo — only responding when you\'re actually talking to it.',
+      'Context-Aware Intent: Three-tiered memory system (session, long-term vector search, persistent facts) allows it to recall past conversations and build understanding over time.',
+      'Real-Time Browser Control: Talks back and forth while autonomously navigating the web via CDP, breaking down complex tasks and streaming results live.',
+      'Custom Voice Cloning: Clones voices with natural speech patterns and inflections for personalised output.',
+    ],
+    details: [
+      'Custom Semantic Turn-Detection: Uses a layered system combining Speechmatics SmartTurn, audio prosody analysis, and a semantic completion check. Instead of relying on silence timers or simple sentence-end detection, it understands when you\'re actually done speaking — even through pauses, filler words, and mid-thought hesitations.',
+      'Local-First Audio Pipeline: Speechmatics RT for real-time transcription with speaker enrollment, PocketTTS for synthesis, Moonshine for wake-word detection, and MossFormer2 for speech enhancement. The entire audio chain runs on CPU with zero cloud API dependency for audio processing.',
+      'Three-State Architecture: RED (off), BLUE (wake-word listening only — zero STT cost), GREEN (full pipeline active). Idle timeout drops to BLUE automatically, so the system costs nothing when you\'re not using it.',
+    ],
+    stat: '<300ms', statLabel: 'conversational latency (CPU)',
+    outcome: 'In active development. Built to control devices, execute complex web tasks, and serve as a persistent personal assistant with complete data privacy and no per-request API costs for audio.',
+    videoUrl: 'SYSTEM1_VIDEO_URL',
+  },
+  {
+    id: 'platform', num: '04', year: '2023–2026',
+    title: 'Passion Projects, Platform',
+    subtitle: 'The complete infrastructure connecting job discovery to application execution. 26,000+ users.',
+    shortline: 'Full SaaS platform for the entire job search lifecycle. React/Vite, C#/.NET, Python/Docker, GCP MySQL.',
+    role: 'Founder, Architect, Engineer, Designer',
+    accent: 'oklch(0.83 0.11 92)', accentHex: '#E3C56B',
+    liveUrl: 'https://www.passion-project.co.uk',
+    tags: ['React','Vite','C#','.NET','Python','Firebase','Google Cloud','MySQL','Docker','Cloudflare','Claude','Gemini'],
+    lead: 'An autonomous job search platform scaled to 26,000+ organic users with zero marketing spend. I architected the complete product lifecycle and full-stack infrastructure: React/Vite frontend, C#/.NET backend, Python/Docker orchestration, GCP MySQL — bridging the gap between international job seekers and complex UK visa sponsorship data.',
+    bullets: [
+      'Conversational Career Agent: A chat-based interface that searches, matches, generates tailored documents, and orchestrates end-to-end applications.',
+      'Document Generation: CVs and cover letters benchmarked for quality, honesty, and hallucination rates across multiple models.',
+      'Application Manager: Real-time status tracking and server-side session management across hundreds of concurrent applications.',
+      'Dynamic Orchestration: Model-agnostic LLM routing with real-time SSE streaming and cross-format API translation.',
+    ],
+    details: [
+      'Infrastructure: React/Vite frontend on Firebase, C#/.NET backend on dedicated Netcup bare metal, MySQL on Google Cloud, Firebase Functions, and Python orchestration in Docker.',
+      'Organic Scale: 26,000+ users with zero marketing spend and zero external funding. Product-led growth driven by a superior data layer and genuine utility.',
+      'Government Validation: Endorsed by the UK Government via the Innovator Founder Visa for bringing a scalable, first-to-market technological solution to the UK.',
+      'Three-Tier Pricing: Free tier, £29/month, and £49/month — with paying customers from day one of the SaaS launch.',
+    ],
+    stat: '26K+', statLabel: 'organic users',
+    outcome: 'Four years. Zero external funding. A platform with a government endorsement, paying customers, and an organic user base that continues to grow.',
+    videoUrl: 'https://www.youtube.com/watch?v=c9XSqB9XS_A',
+  },
+  {
+    id: 'serpflare', num: '05', year: '2025',
+    title: 'SerpFlare, Web-Data API',
+    subtitle: 'A production web-data infrastructure API — live search results and full-page scraping through a single endpoint, built solo to compete with funded players.',
+    shortline: 'An adaptive multi-tier retrieval engine that picks the cheapest method that will actually succeed — near-free on the easy 90% of the web, while still cracking bot-defended pages.',
+    role: 'Founder, Architect, Engineer',
+    accent: 'oklch(0.72 0.19 48)', accentHex: '#F97316',
+    liveUrl: 'https://serpflare.dev',
+    tags: ['Python','FastAPI','Playwright','Browser Automation','Anti-Bot Engineering','Proxy Orchestration','Docker','Cloudflare','Stripe'],
+    lead: 'SerpFlare turns any URL or search query into clean, structured, machine-readable data. One call returns either live search-engine results or the fully-rendered content of a target page, normalised into a consistent shape regardless of how hostile or complex the source site is. Built and operated end to end as a solo project: backend, infrastructure, anti-bot systems, billing, and deployment.',
+    bullets: [
+      'Adaptive multi-tier retrieval: every request flows through a decision ladder that starts with the lightest fetch and escalates only when evidence demands it.',
+      'Anti-bot resilience: real-browser-grade fingerprinting and rendering that passes where naive HTTP clients are blocked, with protection-vendor detection per page.',
+      'Never-lose-content extraction: complex pages converted to clean Markdown with built-in safeguards that guarantee no real record is silently dropped.',
+      'Cost-optimised routing: the cheapest infrastructure path that works, escalating to expensive methods only when genuinely required.',
+      'Production reliability: circuit breakers, spend caps, automatic fallbacks, and structured per-request metrics — engineered to fail safe and stay debuggable.',
+    ],
+    details: [
+      'Intelligent Escalation over Brute Force: Rather than forcing every request through the most expensive method, an escalation engine judges page quality and routes accordingly — lightweight transport, full browser rendering, and managed fallbacks — choosing by evidence, not assumption. Easy pages stay near-free; hard pages still resolve.',
+      'Anti-Bot Engineering: Real-browser request fingerprinting defeats network-level bot detection, and a full browser-rendering tier handles JavaScript-heavy single-page applications. The system detects and classifies protection vendors, then routes each page through the method most likely to succeed.',
+      'Self-Healing Economics: Multiple retrieval and proxy strategies are balanced automatically for cost versus success rate. Circuit breakers, spend caps, and per-host adaptive handling isolate problem sources before they degrade the whole system, while first-class observability makes a complex distributed system measurable and tunable.',
+    ],
+    stat: 'Live', statLabel: 'commercial, billing-ready',
+    outcome: 'Live and commercial, self-hosted on dedicated high-memory infrastructure behind an edge network, with end-to-end billing — positioned directly against established, funded competitors in the web-data API market.',
+    videoUrl: 'SERPFLARE_VIDEO_URL',
+  },
+];
+
+/* ════════ ROUTER ═══════════════════════════════════════════════════ */
+function useHashRoute() {
+  const [route, setRoute] = useState(() => window.location.hash.replace(/^#\/?/, '') || 'home');
+  useEffect(() => {
+    const fn = () => setRoute(window.location.hash.replace(/^#\/?/, '') || 'home');
+    window.addEventListener('hashchange', fn);
+    return () => window.removeEventListener('hashchange', fn);
+  }, []);
+  const go = useCallback((r) => { window.location.hash = '/' + r; window.scrollTo(0,0); }, []);
+  return [route, go];
+}
+
+/* ════════ CYCLING WORD ═════════════════════════════════════════════ */
+const ROLES = ['Engineer','Founder','Architect','Designer'];
+function CyclingWord() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setI(v => (v + 1) % ROLES.length), 2400);
+    return () => clearInterval(t);
+  }, []);
+  return (
+    <span className="cycler">
+      {ROLES.map((w, idx) => (
+        <span key={w} className={`cycler-word ${idx === i ? 'cycler-active' : ''}`}>{w}</span>
+      ))}
+    </span>
+  );
+}
+
+/* ════════ HOME PAGE ════════════════════════════════════════════════ */
+function HomePage({ go }) {
+  return (
+    <main className="page page-home">
+      <div className="home-grid-bg"/>
+      <section className="home-hero-v2">
+        <div className="home-left">
+          <p className="home-eyebrow mono">
+            <span className="dot-live-green"/> Available for senior roles
+          </p>
+          <h1 className="home-name-big">
+            <span className="name-first">Jai</span>
+            <span className="name-last">Choudhary</span>
+          </h1>
+          <p className="home-role-line">
+            <CyclingWord />
+            <span className="role-sep">·</span>
+            <span>Manchester, UK</span>
+          </p>
+          <p className="home-desc-line">
+            Four years building a 26,000-user autonomous platform from the ground up — zero funding, zero marketing. The engine underneath: a proprietary discovery crawler processing 120,000+ companies, and a multi-agent system that completes complex workflows on websites it has never seen, plus SerpFlare — a live, commercial web-data API. Before that, enterprise software for SAP-integrated platforms and NHS healthcare systems.
+          </p>
+          <div className="home-cta-row">
+            <button className="home-cta home-cta-primary" onClick={() => go('about')}>
+              About me
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </button>
+            <button className="home-cta" onClick={() => go('work')}>See the work</button>
+          </div>
+        </div>
+        <aside className="home-right">
+          <div className="portrait-slot">
+            <img src="portrait.jpeg" alt="Jai Choudhary" className="portrait-img" />
+          </div>
+          <div className="home-stats">
+            <div className="home-stat"><span className="mono muted">BASED IN</span><span>Manchester, UK</span></div>
+            <div className="home-stat"><span className="mono muted">VISA</span><span>UK Innovator Founder (No Sponsorship Required)</span></div>
+            <div className="home-stat"><span className="mono muted">USERS</span><span>26,000+ Organic</span></div>
+            <div className="home-stat"><span className="mono muted">STACK</span><span>React · C#/.NET · Python · GCP</span></div>
+          </div>
+        </aside>
+      </section>
+    </main>
+  );
+}
+
+/* ════════ FOOTER ═══════════════════════════════════════════════════ */
+function Footer({ go }) {
+  return (
+    <footer className="footer">
+      <div className="footer-inner">
+        <div>
+          <span className="footer-name">JAI CHOUDHARY</span>
+          <p className="mono muted footer-tag">Manchester, UK</p>
+        </div>
+        <div className="footer-nav">
+          <button onClick={() => go('home')}>Home</button>
+          <button onClick={() => go('about')}>About</button>
+          <button onClick={() => go('work')}>Work</button>
+          <button onClick={() => go('contact')}>Contact</button>
+        </div>
+        <span className="mono muted footer-copy">© 2026</span>
+      </div>
+    </footer>
+  );
+}
+
+/* ════════ APP ══════════════════════════════════════════════════════ */
+function App() {
+  const [route, go] = useHashRoute();
+
+  let Page = null;
+  if (route === 'home' || route === '') Page = <HomePage go={go} />;
+  else if (route === 'work') Page = <window.WorkPage go={go} />;
+  else if (route === 'about') Page = <window.AboutPage go={go} />;
+  else if (route === 'contact') Page = <window.ContactPage go={go} />;
+  else if (route.startsWith('project/')) Page = <window.ProjectDetail id={route.split('/')[1]} go={go} />;
+  else Page = <HomePage go={go} />;
+
+  return (
+    <div className="app">
+      <window.Nav route={route} go={go} />
+      <div key={route} className="route-wrap">{Page}</div>
+      <Footer go={go} />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+</script>
+
+
+</body></html>
